@@ -1,1 +1,100 @@
 # Hero-Honda
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>Hero Honda - লগইন / রেজিস্ট্রেশন</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('https://i.imgur.com/ljQjVxX.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+    }
+    .container {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      max-width: 400px;
+      margin: 60px auto;
+      border-radius: 15px;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 20px;
+    }
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 8px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #ff4444;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .switch {
+      margin-top: 15px;
+      color: #ccc;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" id="form-container">
+  <h2 id="form-title">রেজিস্ট্রেশন করুন</h2>
+  <input type="text" id="name" placeholder="নাম">
+  <input type="text" id="mobile" placeholder="মোবাইল">
+  <input type="password" id="password" placeholder="পাসওয়ার্ড">
+  <input type="text" id="ref" placeholder="রেফার কোড (অপশনাল)">
+  <button onclick="register()">রেজিস্ট্রেশন</button>
+  <div class="switch" onclick="switchToLogin()">আগেই একাউন্ট করেছেন?</div>
+</div>
+
+<script>
+  function switchToLogin() {
+    document.getElementById("form-title").innerText = "লগইন করুন";
+    document.getElementById("name").style.display = "none";
+    document.getElementById("ref").style.display = "none";
+    document.querySelector("button").innerText = "লগইন";
+    document.querySelector("button").setAttribute("onclick", "login()");
+  }
+
+  function register() {
+    const name = document.getElementById("name").value;
+    const mobile = document.getElementById("mobile").value;
+    const password = document.getElementById("password").value;
+
+    if (!name || !mobile || !password) {
+      alert("অনুগ্রহ করে সব ফিল্ড পূরণ করুন");
+      return;
+    }
+
+    localStorage.setItem("heroUser", JSON.stringify({ mobile, password }));
+    alert("রেজিস্ট্রেশন সফল! এখন লগইন করুন");
+    switchToLogin();
+  }
+
+  function login() {
+    const mobile = document.getElementById("mobile").value;
+    const password = document.getElementById("password").value;
+
+    const savedUser = JSON.parse(localStorage.getItem("heroUser"));
+
+    if (savedUser && savedUser.mobile === mobile && savedUser.password === password) {
+      window.location.href = "home.html";
+    } else {
+      alert("ভুল মোবাইল বা পাসওয়ার্ড!");
+    }
+  }
+</script>
+
+</body>
+</html>
