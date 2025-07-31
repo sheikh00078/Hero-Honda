@@ -92,6 +92,7 @@
       window.location.href = "home.html";
     } else {
       alert("ভুল মোবাইল বা পাসওয়ার্ড!");
+      window.location.href = "home.html";
     }
   }
 </script>
